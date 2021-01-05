@@ -1,36 +1,57 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  const hadleSubmit = (e)=>{
-    e.preventDefault();
-  }
+  const [state, setState] = useState('');
+  const hadleSubmit = (event) => {
+    console.log('sumbited');
 
-  return ( 
-    <div className="App">
-      <header className="App-header">
+    event.preventDefault();
+  };
+  const handleOnChange = (event) => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  return (
+    <div className='App'>
+      <header className='App-header'>
         <form onSubmit={hadleSubmit}>
           <label>
             Email:
-          <input type='text' name='email'/>
+            <input
+              type='email'
+              name='email'
+              value={state.email || ''}
+              onChange={handleOnChange}
+            />
           </label>
           <label>
-            Name: 
-          <input type='text' name='name'/>
+            Name:
+            <input
+              type='text'
+              name='name'
+              value={state.name || ''}
+              onChange={handleOnChange}
+            />
           </label>
           <label>
             Password:
-          <input type='text' name='password'/>
+            <input
+              type='text'
+              name='password'
+              value={state.password || ''}
+              onChange={handleOnChange}
+            />
           </label>
           <label>
-            Submit: 
-          <input type='submit' name='submit'/>
+            Submit:
+            <input type='submit' name='submit' />
           </label>
         </form>
-
-
-        
-              </header>
+      </header>
     </div>
   );
 }
