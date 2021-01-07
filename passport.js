@@ -1,4 +1,4 @@
-const passport = require('passport');
+const users = require('./users');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 
@@ -7,13 +7,18 @@ const opt = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 };
 
-module.exports = (users) => {
+module.exports = (passport) => {
   passport.use(
     new JwtStrategy(opt, (jwt_payload, done) => {
-      users.filter((user) => {
-        if (!user || user.id != jwt_payload.id) return done(null, false);
-        return done(null, user);
-      });
+      console.log(jwt_payload);
+      try {
+        users.filter((user) => {
+          if (!user || user.id != jwt_payload.id) return done(null, false);
+          return done(null, user);
+        });
+      } catch (error) {
+        console.log(error);
+      }
     })
   );
 };
