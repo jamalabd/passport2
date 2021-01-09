@@ -29,13 +29,9 @@ app.get('/', (req, res) => {
   res.send('server live my guy');
 });
 
-app.get(
-  '/secret',
-  pP.authenticate('jwt', { session: false }),
-  (req, res, next) => {
-    res.json('Secret Data');
-  }
-);
+app.get('/secret', pP.authenticate('jwt', { session: false }), (req, res) => {
+  res.json('Secret Data');
+});
 
 app.post('/', (req, res) => {
   const { email, name, password } = req.body;
